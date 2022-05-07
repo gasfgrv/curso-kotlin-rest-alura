@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
 import javax.transaction.Transactional
@@ -23,8 +24,8 @@ import javax.validation.Valid
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
-    fun listar(): ResponseEntity<List<TopicoView>> {
-        return ResponseEntity.ok(service.listar())
+    fun listar(@RequestParam(required = false) nomeCurso: String?): ResponseEntity<List<TopicoView>> {
+        return ResponseEntity.ok(service.listar(nomeCurso))
     }
 
     @GetMapping("/{id}")
