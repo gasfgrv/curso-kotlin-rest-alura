@@ -4,17 +4,12 @@ import br.com.alura.forum.dto.AtualizacaoTopicoForm
 import br.com.alura.forum.dto.NovoTopicoForm
 import br.com.alura.forum.dto.TopicoView
 import br.com.alura.forum.service.TopicoService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -24,8 +19,11 @@ import javax.validation.Valid
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
-    fun listar(@RequestParam(required = false) nomeCurso: String?): ResponseEntity<List<TopicoView>> {
-        return ResponseEntity.ok(service.listar(nomeCurso))
+    fun listar(
+        @RequestParam(required = false) nomeCurso: String?,
+        @PageableDefault(size = 5) paginacao: Pageable
+    ): ResponseEntity<Page<TopicoView>> {
+        return ResponseEntity.ok(service.listar(nomeCurso, paginacao))
     }
 
     @GetMapping("/{id}")
