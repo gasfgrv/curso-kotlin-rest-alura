@@ -11,7 +11,7 @@ data class Role(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val nome: String
-): GrantedAuthority {
+) : GrantedAuthority {
 
     override fun getAuthority() = nome
 
