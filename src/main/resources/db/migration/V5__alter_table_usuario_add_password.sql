@@ -1,1 +1,1 @@
-alter table usuario add column senha varchar(100) not null
+alter table usuario add column senha varchar(100)
