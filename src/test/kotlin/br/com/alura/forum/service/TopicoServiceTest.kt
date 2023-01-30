@@ -50,7 +50,7 @@ class TopicoServiceTest {
     }
 
     @Test
-    fun `deve lancar not found exception quando topico não for achado`() {
+    fun `deve lancar not found exception quando topico nao for achado`() {
          every { repository.findById(any()) } returns Optional.empty()
 
         val atual = assertThrows<NotFoundException> {
