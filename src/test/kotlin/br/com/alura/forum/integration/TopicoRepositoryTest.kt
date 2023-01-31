@@ -40,7 +40,6 @@ class TopicoRepositoryTest {
             registry.add("spring.datasource.password") { mysqlContainer.password }
             registry.add("spring.datasource.username") { mysqlContainer.username }
         }
-
     }
 
     @Test
