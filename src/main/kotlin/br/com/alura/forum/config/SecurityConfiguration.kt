@@ -17,26 +17,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
-    private val userDetailsService: UserDetailsService,
-    private val jwtUtil: JWTUtil
+        private val userDetailsService: UserDetailsService,
+        private val jwtUtil: JWTUtil
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
-            .antMatchers("/topicos").hasAuthority("LEITURA_ESCRITA")
-            .antMatchers(HttpMethod.POST,"/login").permitAll()
-            .anyRequest().authenticated()
+                .antMatchers("/topicos").hasAuthority("LEITURA_ESCRITA")
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().authenticated()
 
         http.csrf().disable()
 
         http.addFilterBefore(
-            JWTLoginFilter(authManager = authenticationManager(), jwtUtil = jwtUtil),
-            UsernamePasswordAuthenticationFilter().javaClass
+                JWTLoginFilter(authManager = authenticationManager(), jwtUtil = jwtUtil),
+                UsernamePasswordAuthenticationFilter().javaClass
         )
 
         http.addFilterBefore(
-            JWTAuthenticationFilter(jwtUtil = jwtUtil),
-            UsernamePasswordAuthenticationFilter().javaClass
+                JWTAuthenticationFilter(jwtUtil = jwtUtil),
+                UsernamePasswordAuthenticationFilter().javaClass
         )
 
 
