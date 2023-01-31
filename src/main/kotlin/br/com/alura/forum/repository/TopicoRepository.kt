@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TopicoRepository : JpaRepository<Topico, Long> {
+
     fun findByCursoNome(nomeCurso: String, paginacao: Pageable): Page<Topico>
+
     @Query("select new br.com.alura.forum.dto.TopicoPorCategoriaDto(curso.categoria, count(t)) " +
             "from Topico t " +
             "join t.curso curso " +
