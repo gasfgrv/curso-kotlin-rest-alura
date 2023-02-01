@@ -27,6 +27,7 @@ class SecurityConfiguration(
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/relatorios").hasAuthority("ADMIN")
                 .antMatchers("/respostas").hasAuthority("LEITURA_ESCRITA")
                 .anyRequest().authenticated()
 
