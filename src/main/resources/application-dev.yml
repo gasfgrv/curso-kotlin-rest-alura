@@ -14,5 +14,19 @@ spring:
   redis:
     host: localhost
     port: 6379
+  mail:
+    host:
+    port:
+    username:
+    password:
+    properties:
+      mail:
+        transport:
+          protocol:
+        debug:
+        smtp:
+          auth:
+          starttls:
+            enable:
 jwt:
   secret: secret
