@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service
 class EmailService(
         private val javaMailSender: JavaMailSender
 ) {
-    fun notificar() {
+    fun notificar(emailAutor: String) {
         val message = SimpleMailMessage()
-        message.setSubject("")
-        message.setText("")
-        message.setTo("")
+        message.setSubject("[Forum] Resposta recebida")
+        message.setText("Olá, o seu tópico foi respondido")
+        message.setTo(emailAutor)
 
         javaMailSender.send(message)
     }
