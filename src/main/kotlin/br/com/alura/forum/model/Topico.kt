@@ -1,5 +1,6 @@
 package br.com.alura.forum.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -18,6 +19,7 @@ data class Topico(
         @Enumerated(value = EnumType.STRING)
         val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
         @OneToMany(mappedBy = "topico")
+        @JsonBackReference
         val respostas: List<Resposta> = ArrayList(),
         var dataAlteracao: LocalDate? = null
 )

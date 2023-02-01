@@ -1,5 +1,6 @@
 package br.com.alura.forum.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -16,6 +17,7 @@ data class Resposta(
     @ManyToOne
     val autor: Usuario,
     @ManyToOne
+    @JsonManagedReference
     val topico: Topico,
     val solucao: Boolean
 )
