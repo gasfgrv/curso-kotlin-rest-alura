@@ -9,12 +9,12 @@ import br.com.alura.forum.repository.TopicoRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import java.util.Optional
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
-import java.util.*
 
 class TopicoServiceTest {
 
@@ -51,7 +51,7 @@ class TopicoServiceTest {
 
     @Test
     fun `deve lancar not found exception quando topico nao for achado`() {
-         every { repository.findById(any()) } returns Optional.empty()
+        every { repository.findById(any()) } returns Optional.empty()
 
         val atual = assertThrows<NotFoundException> {
             topicoService.buscarPorId(1)
