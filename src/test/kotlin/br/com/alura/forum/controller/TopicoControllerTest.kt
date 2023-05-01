@@ -1,6 +1,7 @@
 package br.com.alura.forum.controller
 
 import br.com.alura.forum.config.JWTUtil
+import br.com.alura.forum.config.TestConfig
 import br.com.alura.forum.model.UsuarioTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,9 +13,11 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
+import org.testcontainers.junit.jupiter.Testcontainers
 
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TopicoControllerTest {
+class TopicoControllerTest : TestConfig() {
 
     @Autowired
     private lateinit var webApplicationContext: WebApplicationContext
@@ -36,14 +39,14 @@ class TopicoControllerTest {
         token = gerarToken()
 
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply<DefaultMockMvcBuilder?>(SecurityMockMvcConfigurers.springSecurity())
-                .build()
+            .apply<DefaultMockMvcBuilder?>(SecurityMockMvcConfigurers.springSecurity())
+            .build()
     }
 
     @Test
     fun `deve retornar codigo 400 quando chamar topicos sem token`() {
         mockMvc.get(RECURSO)
-                .andExpect { status { is4xxClientError() } }
+            .andExpect { status { is4xxClientError() } }
     }
 
     @Test
